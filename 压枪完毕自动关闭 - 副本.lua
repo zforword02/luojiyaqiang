@@ -127,7 +127,7 @@ temptime = 0
 click = false
 i = 0
 flag = 0
-flag2 = 1
+testtest = 0
 timestart = 0
 leftPressStartTime = 0
 maxLeftPressDuration = 10000
@@ -157,17 +157,22 @@ function OnEvent(event, arg)
 		Sleep(10)
 	end
 	
-	while IsMouseButtonPressed(1) and flag2 == 1 do
+	while IsMouseButtonPressed(1) and flag == 1 do
+		outputLogMessage("testtest2: %d\n", GetRunningTime())
+		testtest2 = GetRunningTime();
 		if leftPressStartTime == 0 then
 			leftPressStartTime = GetRunningTime()
 		end
 		if GetRunningTime() - leftPressStartTime >= maxLeftPressDuration then
-			flag2 = 0
+			flag = 0
 			break
 		end
 		if (indexWeapon == 30) then
 			click = true
 			SetMKeyState(3)
+			break
+		end
+		if IsMouseButtonPressed(3) then
 			break
 		end
 	
@@ -286,7 +291,7 @@ function OnEvent(event, arg)
 		end
 		end
 		if moshi == 2 then
-			if (indexWeapon > 0 and indexWeapon < 30 and not IsKeyLockOn(luopei) and  IsMouseButtonPressed(3))  then
+			if (indexWeapon > 0 and indexWeapon < 30 and not IsKeyLockOn(luopei))  then
 			if indexPattern < #Wpattern_man[indexWeapon] and not IsKeyLockOn(Sibei) then
 				if indexPattern == 1 then
 					timestart = GetRunningTime()
@@ -341,7 +346,7 @@ function OnEvent(event, arg)
 				end
 				indexPattern = 1
 			end
-		elseif (indexWeapon > 0 and indexWeapon < 30 and  IsKeyLockOn(luopei) and IsMouseButtonPressed(3) )  then
+		elseif (indexWeapon > 0 and indexWeapon < 30 and  IsKeyLockOn(luopei))  then
 			if indexPattern < #Wpattern_luo[indexWeapon] and not IsKeyLockOn(Sibei) then
 				if indexPattern == 1 then
 					timestart = GetRunningTime()
@@ -468,14 +473,16 @@ function OnEvent(event, arg)
 				MoveMouseRelative(backx3, backy3)
 				i = i + 1
 			end
-			indexPattern = 1
-			backx = 0
-			backy = 0
-			backx1 = 0.00
-			backy1 = 0.00
-			tsleep3 = 0.00	
-			flag2 = 1
-			indexWeapon = 0
+			if testtest2 - timestart >= 1000 then
+				indexPattern = 1
+				backx = 0
+				backy = 0
+				backx1 = 0.00
+				backy1 = 0.00
+				tsleep3 = 0.00	
+				flag = 0
+				indexWeapon = 0
+			end
 		end
 	end
 	if (event == "MOUSE_BUTTON_PRESSED") then
@@ -818,6 +825,7 @@ OutputLogMessage("--------------------------------------------------------------
 						
 					
 			elseif (arg == Wkey1[7]) then
+				testtest = GetRunningTime();
 				indexWeapon = 7
 				temp = 7
 				flag = 1
