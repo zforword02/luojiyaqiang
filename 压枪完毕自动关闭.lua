@@ -170,6 +170,9 @@ function OnEvent(event, arg)
 			SetMKeyState(3)
 			break
 		end
+		if IsMouseButtonPressed(3) then
+			break
+		end
 	
 	if moshi == 1 then
 		if (indexWeapon > 0 and indexWeapon < 30 and not IsKeyLockOn(luopei) )  then
@@ -286,7 +289,7 @@ function OnEvent(event, arg)
 		end
 		end
 		if moshi == 2 then
-			if (indexWeapon > 0 and indexWeapon < 30 and not IsKeyLockOn(luopei) and  IsMouseButtonPressed(3))  then
+			if (indexWeapon > 0 and indexWeapon < 30 and not IsKeyLockOn(luopei))  then
 			if indexPattern < #Wpattern_man[indexWeapon] and not IsKeyLockOn(Sibei) then
 				if indexPattern == 1 then
 					timestart = GetRunningTime()
@@ -341,7 +344,7 @@ function OnEvent(event, arg)
 				end
 				indexPattern = 1
 			end
-		elseif (indexWeapon > 0 and indexWeapon < 30 and  IsKeyLockOn(luopei) and IsMouseButtonPressed(3) )  then
+		elseif (indexWeapon > 0 and indexWeapon < 30 and  IsKeyLockOn(luopei))  then
 			if indexPattern < #Wpattern_luo[indexWeapon] and not IsKeyLockOn(Sibei) then
 				if indexPattern == 1 then
 					timestart = GetRunningTime()
