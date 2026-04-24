@@ -131,7 +131,6 @@ flag2 = 1
 timestart = 0
 leftPressStartTime = 0
 maxLeftPressDuration = 10000
-sprayRunning = false
 timebegin = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
 timeend = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
 dp={230,183,152,229,174,157,229,186,151,233,147,186,239,188,154,72,88,68,229,183,165,228,189,156,229,174,164}
@@ -157,21 +156,18 @@ function OnEvent(event, arg)
 	if (wireless) then
 		Sleep(10)
 	end
-
-	if (event == "MOUSE_BUTTON_PRESSED" and arg == 1 and flag2 == 1) then
-		sprayRunning = true
-		leftPressStartTime = GetRunningTime()
-	end
 	
-	while sprayRunning and flag2 == 1 do
+	while IsMouseButtonPressed(1) and flag2 == 1 do
+		if leftPressStartTime == 0 then
+			leftPressStartTime = GetRunningTime()
+		end
 		if GetRunningTime() - leftPressStartTime >= maxLeftPressDuration then
-			sprayRunning = false
+			flag2 = 0
 			break
 		end
 		if (indexWeapon == 30) then
 			click = true
 			SetMKeyState(3)
-			sprayRunning = false
 			break
 		end
 	
@@ -442,7 +438,6 @@ function OnEvent(event, arg)
 
 	if (event == "MOUSE_BUTTON_RELEASED" and indexWeapon ~= 17 and indexWeapon ~= 0) then
 		if (arg == 1) then
-			sprayRunning = false
 			leftPressStartTime = 0
 			backx2 = math.floor(backx / 40)
 			backy2 = math.floor(backy / 40)
