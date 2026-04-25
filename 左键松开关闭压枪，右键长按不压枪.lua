@@ -107,6 +107,8 @@ none_four = 4
 famas_four = 4
 
 
+timetest1 = 0
+timetest2 = 0
 
 
 indexWeapon = 0
@@ -158,6 +160,8 @@ function OnEvent(event, arg)
 	end
 	
 	while IsMouseButtonPressed(1) and flag2 == 1 do
+		timetest2 = GetRunningTime()
+
 		if leftPressStartTime == 0 then
 			leftPressStartTime = GetRunningTime()
 		end
@@ -478,8 +482,10 @@ function OnEvent(event, arg)
 			backy1 = 0.00
 			tsleep3 = 0.00	
 			flag2 = 1
-			indexWeapon = 0
-			
+			if timetest2 - timetest1 >= 5000 then
+				indexWeapon = 0
+
+			end
 		end
 	end
 	if (event == "MOUSE_BUTTON_PRESSED") then
@@ -796,9 +802,11 @@ OutputLogMessage("--------------------------------------------------------------
 
 			end
 			if (arg == Wkey3[7] and IsModifierPressed(Second))then
+				timetest1 = GetRunningTime()
 				indexWeapon = 7
 				temp = 7
 				flag = 1
+				flag2 = 1
 				ClearLog()
 				OutputLogMessage("-----------------------------------------------------------------------------------------\n")
 				OutputLogMessage("-----| ")
@@ -822,6 +830,8 @@ OutputLogMessage("--------------------------------------------------------------
 						
 					
 			elseif (arg == Wkey1[7]) then
+				timetest1 = GetRunningTime()
+
 				indexWeapon = 7
 				temp = 7
 				flag = 1
