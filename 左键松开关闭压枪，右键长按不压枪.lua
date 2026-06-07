@@ -165,10 +165,7 @@ function OnEvent(event, arg)
 		if leftPressStartTime == 0 then
 			leftPressStartTime = GetRunningTime()
 		end
-		if GetRunningTime() - leftPressStartTime >= maxLeftPressDuration then
-			flag2 = 0
-			break
-		end
+
 		if (indexWeapon == 30) then
 			click = true
 			SetMKeyState(3)
